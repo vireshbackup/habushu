@@ -2,18 +2,21 @@ apply plugin: 'java'
 
 repositories {
     flatDir {
-        dirs '../bottledtv/'
+        dirs '../bottledtv/', '../bottledtv/lib/'
     }
 }
 
 dependencies {
     compile name: 'BottledTV'
+    compile name: 'LightDOM-1.1.3'
 }
 
 jar {
     baseName = 'cli'  
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     manifest {
         attributes("Main-Class": "habushu.cli.CLI")
     }
 }
+
 
