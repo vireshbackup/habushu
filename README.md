@@ -7,4 +7,7 @@ BUILDING
  - create a virtualenv for Habushu: mkvirtualenv Habushu
  - enter the virtualenv: source Habushu/bin/activation
  - install requirements: pip install -r requirements.txt 
+ - fab build
 
+RUNNING
+ - fab run (runs a single threaded dev server. NOT suitable for production)
