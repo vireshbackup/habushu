@@ -1,0 +1,5 @@
+upstream/
+templates/*.jsp
+static/
+*.swp
+*.pyc

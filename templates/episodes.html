@@ -1,0 +1,44 @@
+{% extends "browse.html" %}
+{% block content %}
+
+				<div class="container_box">
+                    <span class="title">{{series.title}}&nbsp;({{series.language}})</span>
+                    <p>{{series.description}}</p>
+				</div>
+				<table>
+                    {% if episodeList %}
+							<tr>
+								<th>&nbsp;</th>
+								<th>Episode</th>
+								<th>Title</th>
+								<th>First aired</th>
+							</tr>
+                            {% for episode in episodeList %}
+                                {% if episode.episodeNumber == 1 %}
+										<tr class="section">
+                                            <td colspan="4">Season {{episode.seasonNumber}}</td>
+										</tr>
+                                 {% endif %}
+									<tr class="hyperlink highlight">
+                                        {% if episode.localFilePresent %}
+												<td><img src="/static/img/dot_green.png" title="local file is available"/></td>
+                                         {% else %}
+												<td><img src="/static/img/dot_gray.png" title="local file is not available"/>
+												</td>
+                                         {% endif %}
+										<td>
+                                            <a href="/browse/{{series.id}}/{{series.language}}/{{episode.id}}?search={{search}}">{{episode.episodeCode}}</a>
+										</td>
+                                        <td style="width:100%">{{episode.title}}</td>
+                                        <td style="white-space: nowrap;">{{episode.firstAired}}</td>
+									</tr>
+                            {% endfor %}
+                     {% else %}
+							<div class="container_box">
+								<p>There are no episodes for this series.</p>
+							</div>
+                     {% endif %}
+				</table>
+
+{% endblock %}
+

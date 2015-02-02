@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block body %}
+		<div class="container_box dark">
+			<form action="/browse" method="get">
+                <input class="search_field" type="text" name="search" value="{{ search }}"/>
+				<input class="button" type="submit" value="Search"/>
+			</form>
+		</div>
+
+
+        {% block content %}
+        {% if seriesList %}
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Language</th>
+                    </tr>
+                    {% for series in seriesList %}
+                        <tr class="hyperlink highlight">
+                            <td style="width:100%">
+                                <a href="/browse/{{series.id}}/{{series.language}}?search={{search}}">{{series.title}}</a>
+                            </td>
+                            <td>{{series.language}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+        {% else %}
+                <div class="container_box">
+                    <p>No entries matching "{{search}}".</p>
+                </div>
+        {% endif %}
+        {% endblock %}
+{% endblock %}
+
