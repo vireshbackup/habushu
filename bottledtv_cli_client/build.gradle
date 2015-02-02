@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+repositories {
+    flatDir {
+        dirs '../bottledtv/'
+    }
+}
+
+dependencies {
+    compile name: 'BottledTV'
+}
+
+jar {
+    baseName = 'cli'  
+    manifest {
+        attributes("Main-Class": "habushu.cli.CLI")
+    }
+}
+

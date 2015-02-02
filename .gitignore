@@ -1,5 +1,7 @@
-upstream/
+bottledtv/
+bottledtv_cli_client/build
 templates/*.jsp
 static/
+.gradle
 *.swp
 *.pyc
