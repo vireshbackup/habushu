@@ -1,6 +1,11 @@
 # habushu
-
 python in a Bottle(dTV)...
+
+if you don't know what BottledTV is, then there's probably no point in looking at this code. 
+
+REQUIREMENTS
+ - java >= 7
+ - python >= 2.7
 
 BUILDING
  - make sure you have virtualenv installed (sudo pip install virtualenv)
