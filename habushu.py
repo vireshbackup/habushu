@@ -65,11 +65,13 @@ def detail(series_id, lang, season_no, episode_no):
 
 @app.route('/torrentSearch')
 def search():
+    # TODO implement bottledtv cli client and call here
     return ''
 
 
 @app.route('/updateDownloadProgress')
 def downloadProgress():
+    # TODO call bottledtv cli client here 
     return ''
 
 if __name__ == '__main__':

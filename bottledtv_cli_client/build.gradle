@@ -4,11 +4,13 @@ repositories {
     flatDir {
         dirs '../bottledtv/', '../bottledtv/lib/'
     }
+    mavenCentral()
 }
 
 dependencies {
     compile name: 'BottledTV'
     compile name: 'LightDOM-1.1.3'
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.2'
 }
 
 jar {
