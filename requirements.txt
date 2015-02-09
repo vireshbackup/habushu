@@ -1,2 +1,3 @@
 fabric
 Flask
+tvdb_api
