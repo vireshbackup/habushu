@@ -11,12 +11,12 @@ def _fetch_upstream():
         local('mkdir -p ' + DIRNAME)
         local('git clone git@bottledtvserver:BottledTV ' + DIRNAME)
 
-def _copy_templates():
-    #local('rm -rf templates/')
-    local('mkdir -p templates/')
-    local('mkdir -p static')
-    local('cp %s/web/*.jsp templates/' % DIRNAME)
-    local('cp -r %s/web/{css,js} static' % DIRNAME)
+#def _copy_templates():
+#    #local('rm -rf templates/')
+#    local('mkdir -p templates/')
+#    local('mkdir -p static')
+#    local('cp %s/web/*.jsp templates/' % DIRNAME)
+#    local('cp -r %s/web/{css,js} static' % DIRNAME)
 
 def _compile_java_cli():
     with lcd('bottledtv_cli_client'):
@@ -25,9 +25,10 @@ def _compile_java_cli():
 
 
 def build():
-    _fetch_upstream()
-    _copy_templates()
-    _compile_java_cli()
+    #_fetch_upstream()
+    #_copy_templates()
+    #_compile_java_cli()
+    pass
 
 def run():
     local('python ./habushu.py')
