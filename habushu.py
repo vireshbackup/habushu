@@ -51,7 +51,6 @@ def browse():
 def episodes(series_id, lang):
     show = _show_as_tuple(t[series_id])
     episodes = _build_episode_list(t[series_id])
-    print episodes
     return render_template('episodes.html', search=request.args.get('search', ''), episodeList=episodes, series=show)
 
 
