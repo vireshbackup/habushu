@@ -11,10 +11,12 @@ t = tvdb_api.Tvdb(cache = True, banners = False, search_all_languages = True)
 app = Flask(__name__)
 
 Series = namedtuple('Series', ['id', 'language', 'title', 'description'])
-Episodes = namedtuple('Episodes', ['episodeNumber', 'episodeCode', 'seasonNumber', 'localFilePresent', 'firstAired', 'title'])
+Episodes = namedtuple('Episodes', ['episodeNumber', 'episodeCode', 'seasonNumber', 'localFilePresent', 'firstAired', 'title', 'description'])
+
 
 def _show_as_tuple(show):
     return Series(int(show['id']), show['language'], show['seriesname'], show['overview'])
+
 
 def _build_episode_list(tvdb_show):
     res = []
@@ -22,13 +24,15 @@ def _build_episode_list(tvdb_show):
         for e in tvdb_show[season]:
             episode = tvdb_show[season][e]
             # FIXME episodeNumber, episodeCode ???
-            res.append(Episodes(int(episode['episodenumber']), int(episode['episodenumber']), int(episode['seasonnumber']), False, episode['firstaired'], episode['episodename']))
+            res.append(Episodes(int(episode['episodenumber']), int(episode['episodenumber']), int(episode['seasonnumber']), False, episode['firstaired'], episode['episodename' ], ''))
     return res
+
 
 @app.route('/')
 @app.route('/home')
 def welcome():
      return render_template('index.html')
+
 
 @app.route('/browse')
 def browse():
@@ -42,6 +46,7 @@ def browse():
         pass
     return render_template('browse.html', search=search, seriesList=seriesList)
 
+
 @app.route('/browse/<int:series_id>/<lang>')
 def episodes(series_id, lang):
     show = _show_as_tuple(t[series_id])
@@ -49,10 +54,23 @@ def episodes(series_id, lang):
     print episodes
     return render_template('episodes.html', search=request.args.get('search', ''), episodeList=episodes, series=show)
 
+
 @app.route('/browse/<int:series_id>/<lang>/<int:season_no>/<int:episode_no>')
 def detail(series_id, lang, season_no, episode_no):
-    return 'Detail page for "%s", Season %i, Episode %i' % (t[series_id]['seriesname'], season_no, episode_no)
+    series = _show_as_tuple(t[series_id])
+    e = t[series_id][season_no][episode_no]
+    episode = Episodes(int(e['episodenumber']), int(e['episodenumber']), int(e['seasonnumber']), False, e['firstaired'], e['episodename'], e['overview'])
+    return render_template('detail.html', search=request.args.get('search', ''), episode=episode, series=series)
 
+
+@app.route('/torrentSearch')
+def search():
+    return ''
+
+
+@app.route('/updateDownloadProgress')
+def downloadProgress():
+    return ''
 
 if __name__ == '__main__':
     app.run(debug=True)
