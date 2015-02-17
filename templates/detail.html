@@ -20,7 +20,7 @@
 							</td>
 							<td style="width:50%; vertical-align: middle; text-align: right">
 								<input id="toggle_filter_button" class="button" style="margin-right: 30px;" type="submit" value="Show filter settings" onclick="javascript:toggleFilter();"/>
-                                <input class="button" type="submit" value="Search" onclick="javascript:searchTorrents({{episode.episodeNumber}}, '{{series.language}}');"/>
+                                <input class="button" type="submit" value="Search" onclick="javascript:searchTorrents('{{series.id}}/{{episode.seasonNumber}}/{{episode.episodeNumber}}', '{{series.language}}');"/>
 							</td>
 						</tr>
 					</table>

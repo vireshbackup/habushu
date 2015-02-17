@@ -1,3 +1,9 @@
 fabric
 Flask
 tvdb_api
+
+# requirements for KickassAPI
+requests
+pyquery
+
+KickassAPI
