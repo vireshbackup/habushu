@@ -5,18 +5,17 @@ if you don't know what BottledTV is, then there's probably no point in looking a
 
 REQUIREMENTS
  - java >= 7
- - python >= 3.4
+ - python >= 2.7 && < 3.0
 
 BUILDING
  - make sure you have virtualenv installed (sudo pip install virtualenv)
- - create a (python3.4) virtualenv for habushu: mkvirtualenv -p `which python3.4` habushu
+ - create a virtualenv for habushu: mkvirtualenv habushu
  - enter the virtualenv: source PATH_TO_VIRTUALENVS/habushu/bin/activate
  - install requirements: pip install -r requirements.txt 
  - ~~fab build~~ (currently not necessary)
 
 RUNNING
- - ~~fab run (runs a single-threaded dev server. NOT suitable for production)~~
- - python ./habushu.py (do NOT use for production)
+ - fab run (runs a single-threaded dev server. NOT suitable for production)
 
 STATUS
  - done: search, episodelist and episode-details
