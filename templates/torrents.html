@@ -1,5 +1,28 @@
-<ul>
+<div id="result">
+<table>
+<tbody>
+<tr>
+<th> </th>
+<th>Name</th>
+<th style="text-align:right;">Likelihood</th>
+<th style="text-align:right;">Seeders</th>
+<th style="text-align:right;">Leechers</th>
+<th> </th>
+</tr>
 {% for t in torrents %}
-<li>{{t.name}}</li> 
+<tr>
+    <td></td>
+    <td style="width:100%">{{t.name}} (Verified: {{t.verified_torrent}}, Size: {{t.size}})</td>
+    <td style="text-align:right;">1000%</td>
+    <td style="text-align:right;">{{t.seed}}</td>
+    <td style="text-align:right;">{{t.leech}}</td>
+    <td style="text-align:right;">
+        <div id="download_button_{{t.magnet_link|b64}}" class="download_button download" onclick="javascript:addTorrent('{{t.magnet_link|b64}}', true);" title="download this torrent"> download </div>
+    </td> 
+</tr>
 {% endfor %}
-</ul>
+</tbody>
+</table>
+</div>
+
+

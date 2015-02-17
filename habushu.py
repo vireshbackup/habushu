@@ -1,10 +1,15 @@
 import tvdb_api
+
+from collections import namedtuple
+
+from base64 import b64encode
+
 from flask import Flask, request
 from flask import render_template
 
 from tvdb_exceptions import tvdb_shownotfound
 
-from collections import namedtuple
+from KickassAPI import Search
 
 # FIXME add our own tvdb api key
 t = tvdb_api.Tvdb(cache = True, banners = False, search_all_languages = True)
@@ -26,6 +31,11 @@ def _build_episode_list(tvdb_show):
             # FIXME episodeNumber, episodeCode ???
             res.append(Episodes(int(episode['episodenumber']), int(episode['episodenumber']), int(episode['seasonnumber']), False, episode['firstaired'], episode['episodename' ], ''))
     return res
+
+
+@app.template_filter('b64')
+def encode_magnet_url(u):
+    return b64encode(u)
 
 
 @app.route('/')
@@ -66,10 +76,11 @@ def detail(series_id, lang, season_no, episode_no):
 def search():
     (show, season, episode) = request.args.get('episodeId', '0/0/').split('/')
     search_string = "%s S%02iE%02i" % (t[int(show)]['seriesname'], int(season), int(episode))
-    from KickassAPI import Search
     torrents = []
     for r in Search(search_string):
         torrents.append(r)
+    # sort the torrents. verified before unverified and then by seeders descending
+    torrents = sorted(torrents, key=lambda torrent: 10 * int(torrent.seed) if torrent.verified_torrent else int(torrent.seed), reverse=True)
     return render_template('torrents.html', torrents=torrents)
 
 
