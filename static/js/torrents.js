@@ -244,6 +244,15 @@ updateDownloadProgress = function ()
 						$('#local_file_available').prop('title', 'local file is available');
 					}
 				}
+                else {
+                    button.toggleClass('active', true);
+			        button.toggleClass('download', false);
+			        button.toggleClass('waiting', true);
+			        button.prop('title', 'waiting for download to start');
+			        button.text('');
+			        button[0].onclick = null;
+
+                }
 			});
 		}
 	});
