@@ -9,3 +9,5 @@ pyquery
 KickassAPI
 
 transmissionrpc
+
+gunicorn

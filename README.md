@@ -4,7 +4,7 @@ python in a Bottle(dTV)...
 if you don't know what BottledTV is, then there's probably no point in looking at this code. 
 
 REQUIREMENTS
- - java >= 7
+ - ~~java >= 7~~
  - python >= 2.7 && < 3.0
 
 BUILDING
@@ -15,7 +15,8 @@ BUILDING
  - ~~fab build~~ (currently not necessary)
 
 RUNNING
- - fab run (runs a single-threaded dev server. NOT suitable for production)
+ - fab run_dev (runs a single-threaded dev server. NOT suitable for production)
+ - fab run (runs a gunicorn server with two workers listening on localhost:5000)
 
 STATUS
  - done: search, episodelist and episode-details
