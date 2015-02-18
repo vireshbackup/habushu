@@ -60,15 +60,16 @@ searchTorrents = function (episodeId, language)
 
 addTorrent = function (torrentHash, test)
 {
-	if (!$('#download_button_' + torrentHash).hasClass('active'))
+    var button = $(document.getElementById('download_button_' + torrentHash));
+	if (!button.hasClass('active'))
 	{
 		if (!test)
 		{
-			$('#download_button_' + torrentHash).toggleClass('download', false);
-			$('#download_button_' + torrentHash).toggleClass('waiting', true);
-			$('#download_button_' + torrentHash).prop('title', 'waiting for download to start');
-			$('#download_button_' + torrentHash).text('');
-			$('#download_button_' + torrentHash)[0].onclick = null;
+			button.toggleClass('download', false);
+			button.toggleClass('waiting', true);
+			button.prop('title', 'waiting for download to start');
+			button.text('');
+			button[0].onclick = null;
 
 			// reset update progress interval
 			clearInterval(updateProgressIntervalId);
@@ -80,15 +81,15 @@ addTorrent = function (torrentHash, test)
 				data: null,
 				success: function ()
 				{
-					$('#download_button_' + torrentHash).toggleClass('active', true);
+					button.toggleClass('active', true);
 				},
 				error: function ()
 				{
-					$('#download_button_' + torrentHash).toggleClass('download', true);
-					$('#download_button_' + torrentHash).toggleClass('waiting', false);
-					$('#download_button_' + torrentHash).prop('title', 'download this torrent');
-					$('#download_button_' + torrentHash).text('download');
-					$('#download_button_' + torrentHash).click(function ()
+					button.toggleClass('download', true);
+					button.toggleClass('waiting', false);
+					button.prop('title', 'download this torrent');
+					button.text('download');
+					button.click(function ()
 					{
 						addTorrent(torrentHash, true);
 					});
@@ -116,16 +117,17 @@ addTorrent = function (torrentHash, test)
 
 enableCancelButton = function (torrentHash)
 {
-	if ($('#download_button_' + torrentHash).hasClass('active') && !$('#download_button_' + torrentHash).hasClass('waiting'))
+    var button = $(document.getElementById('download_button_' + torrentHash));
+	if (button.hasClass('active') && !button.hasClass('waiting'))
 	{
 		if (!progressMap[torrentHash])
-			progressMap[torrentHash] = $('#download_button_' + torrentHash).text();
+			progressMap[torrentHash] = button.text();
 
-		$('#download_button_' + torrentHash).toggleClass('progress', false);
-		$('#download_button_' + torrentHash).toggleClass('cancel', true);
-		$('#download_button_' + torrentHash).prop('title', 'cancel download');
-		$('#download_button_' + torrentHash).text('cancel');
-		$('#download_button_' + torrentHash).click(function ()
+		button.toggleClass('progress', false);
+		button.toggleClass('cancel', true);
+		button.prop('title', 'cancel download');
+		button.text('cancel');
+		button.click(function ()
 		{
 			cancelDownload(torrentHash, true);
 		});
@@ -134,27 +136,29 @@ enableCancelButton = function (torrentHash)
 
 disableCancelButton = function (torrentHash)
 {
-	if ($('#download_button_' + torrentHash).hasClass('active') && !$('#download_button_' + torrentHash).hasClass('waiting'))
+    var button = $(document.getElementById('download_button_' + torrentHash));
+    if (button.hasClass('active') && !button.hasClass('waiting'))
 	{
-		$('#download_button_' + torrentHash).toggleClass('progress', true);
-		$('#download_button_' + torrentHash).toggleClass('cancel', false);
-		$('#download_button_' + torrentHash).prop('title', 'downloading');
-		$('#download_button_' + torrentHash).text(progressMap[torrentHash]);
+		button.toggleClass('progress', true);
+		button.toggleClass('cancel', false);
+		button.prop('title', 'downloading');
+		button.text(progressMap[torrentHash]);
 	}
 }
 
 cancelDownload = function (torrentHash, ask)
 {
-	if ($('#download_button_' + torrentHash).hasClass('active') && !$('#download_button_' + torrentHash).hasClass('waiting'))
+    var button = $(document.getElementById('download_button_' + torrentHash));
+	if (button.hasClass('active') && !button.hasClass('waiting'))
 	{
 		if (!ask)
 		{
-			$('#download_button_' + torrentHash).toggleClass('cancel', false);
-			$('#download_button_' + torrentHash).toggleClass('progress', false);
-			$('#download_button_' + torrentHash).toggleClass('waiting', true);
-			$('#download_button_' + torrentHash).toggleClass('active', false);
-			$('#download_button_' + torrentHash).prop('title', 'download is being stopped');
-			$('#download_button_' + torrentHash).text('');
+			button.toggleClass('cancel', false);
+			button.toggleClass('progress', false);
+			button.toggleClass('waiting', true);
+			button.toggleClass('active', false);
+			button.prop('title', 'download is being stopped');
+			button.text('');
 
 			$.ajax({
 				dataType: 'json',
@@ -162,11 +166,11 @@ cancelDownload = function (torrentHash, ask)
 				data: null,
 				success: function ()
 				{
-					$('#download_button_' + torrentHash).toggleClass('download', true);
-					$('#download_button_' + torrentHash).toggleClass('waiting', false);
-					$('#download_button_' + torrentHash).prop('title', 'download this torrent');
-					$('#download_button_' + torrentHash).text('download');
-					$('#download_button_' + torrentHash).click(function ()
+					button.toggleClass('download', true);
+					button.toggleClass('waiting', false);
+					button.prop('title', 'download this torrent');
+					button.text('download');
+					button.click(function ()
 					{
 						addTorrent(torrentHash, true);
 					});
@@ -175,11 +179,11 @@ cancelDownload = function (torrentHash, ask)
 				{
 					displaySimpleDialog('Error trying to cancel this download. This may occur if the download does no longer exists (i.e. has already completed or has been removed by another user).');
 
-					$('#download_button_' + torrentHash).toggleClass('download', true);
-					$('#download_button_' + torrentHash).toggleClass('waiting', false);
-					$('#download_button_' + torrentHash).prop('title', 'download this torrent');
-					$('#download_button_' + torrentHash).text('download');
-					$('#download_button_' + torrentHash).click(function ()
+					button.toggleClass('download', true);
+					button.toggleClass('waiting', false);
+					button.prop('title', 'download this torrent');
+					button.text('download');
+					button.click(function ()
 					{
 						addTorrent(torrentHash, true);
 					});
@@ -206,23 +210,24 @@ updateDownloadProgress = function ()
 		{
 			$.each(result, function (torrentHash, progress)
 			{
-				if ($('#download_button_' + torrentHash).length > 0 && $('#download_button_' + torrentHash).hasClass('active'))
+                var button = $(document.getElementById('download_button_' + torrentHash));
+				if (button.length > 0 && button.hasClass('active'))
 				{
-					if (!$('#download_button_' + torrentHash).hasClass('cancel'))
+					if (!button.hasClass('cancel'))
 					{
-						$('#download_button_' + torrentHash).toggleClass('download', false);
-						$('#download_button_' + torrentHash).toggleClass('waiting', false);
-						$('#download_button_' + torrentHash).toggleClass('progress', true);
-						$('#download_button_' + torrentHash).text(progress);
-						$('#download_button_' + torrentHash).mouseenter(function ()
+						button.toggleClass('download', false);
+						button.toggleClass('waiting', false);
+						button.toggleClass('progress', true);
+						button.text(progress);
+						button.mouseenter(function ()
 						{
 							enableCancelButton(torrentHash);
 						});
-						$('#download_button_' + torrentHash).mouseleave(function ()
+						button.mouseleave(function ()
 						{
 							disableCancelButton(torrentHash);
 						});
-						$('#download_button_' + torrentHash).click(function ()
+						button.click(function ()
 						{
 							cancelDownload(torrentHash, true);
 						});
