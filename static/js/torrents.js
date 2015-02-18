@@ -75,10 +75,11 @@ addTorrent = function (torrentHash, test)
 			clearInterval(updateProgressIntervalId);
 			updateProgressIntervalId = setInterval(updateDownloadProgress, updateProgressTimeout);
 
+            var magnet_url = $(document.getElementById(torrentHash + '_magnet_url')).val()
 			$.ajax({
 				dataType: 'json',
 				url: '/torrentAdd?torrentHash=' + torrentHash,
-				data: null,
+				data: { 'magnet_url' : magnet_url },
 				success: function ()
 				{
 					button.toggleClass('active', true);

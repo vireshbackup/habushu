@@ -97,19 +97,21 @@ def search():
 
 @app.route('/torrentAdd')
 def add_torrent():
-    torrent_hash = request.args.get('torrentHash', '')
     client = _get_transmission_client()
-    magnet_url = 'magnet:?xt=urn:btih:' + torrent_hash
+    magnet_url = request.args.get('magnet_url', '') 
     torrent = client.add_torrent(magnet_url)
     return jsonify({'success' : True})
 
 @app.route('/updateDownloadProgress')
 def downloadProgress():
-    client = _get_transmission_client()
-    status = []
-    for torrent in client.get_torrents():
-        status.append(( torrent.hashString.lower(), torrent.progress ))
-    return jsonify(status)
+    try:
+        client = _get_transmission_client()
+        status = []
+        for torrent in client.get_torrents():
+            status.append(( torrent.hashString.lower(), torrent.progress ))
+        return jsonify(status)
+    except transmissionrpc.TransmissionError:
+        return 'transmission not reachable'
 
 if __name__ == '__main__':
     app.run(debug=True)

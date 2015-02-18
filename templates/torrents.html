@@ -18,6 +18,7 @@
     <td style="text-align:right;">{{t.leech}}</td>
     <td style="text-align:right;">
         <div id="download_button_{{t.magnet_link|find_hash}}" class="download_button download" onclick="javascript:addTorrent('{{t.magnet_link|find_hash}}', true);" title="download this torrent"> download </div>
+        <input type="hidden" id="{{t.magnet_link|find_hash}}_magnet_url" value="{{t.magnet_link}}" />
     </td> 
 </tr>
 {% endfor %}
