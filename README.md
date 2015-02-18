@@ -6,6 +6,7 @@ if you don't know what BottledTV is, then there's probably no point in looking a
 REQUIREMENTS
  - ~~java >= 7~~
  - python >= 2.7 && < 3.0
+ - Transmission with a reachable webinterface (https://www.transmissionbt.com/)
 
 BUILDING
  - make sure you have virtualenv installed (sudo pip install virtualenv)
