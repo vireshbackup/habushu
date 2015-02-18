@@ -108,7 +108,7 @@ def downloadProgress():
         client = _get_transmission_client()
         status = []
         for torrent in client.get_torrents():
-            status.append(( torrent.hashString.lower(), torrent.progress ))
+            status.append(( torrent.hashString.lower(), str(int(torrent.progress)) + " %" ))
         return jsonify(status)
     except transmissionrpc.TransmissionError:
         return 'transmission not reachable'
