@@ -1,23 +1,33 @@
+import re
 import tvdb_api
+import transmissionrpc
 
 from collections import namedtuple
 
-from base64 import b64encode
-
 from flask import Flask, request
 from flask import render_template
-
+from flask import jsonify
 from tvdb_exceptions import tvdb_shownotfound
-
 from KickassAPI import Search
 
 # FIXME add our own tvdb api key
 t = tvdb_api.Tvdb(cache = True, banners = False, search_all_languages = True)
 app = Flask(__name__)
+app.config.from_pyfile('habushu.cfg', silent=True)
 
 Series = namedtuple('Series', ['id', 'language', 'title', 'description'])
 Episodes = namedtuple('Episodes', ['episodeNumber', 'episodeCode', 'seasonNumber', 'localFilePresent', 'firstAired', 'title', 'description'])
 
+
+torrent_hash_matcher = re.compile('urn:btih:([^&]+)')
+
+def _get_transmission_client():
+    return transmissionrpc.Client(
+            app.config['TRANSMISSION_HOSTNAME'], 
+            port=app.config['TRANSMISSION_PORT'],
+            user=app.config['TRANSMISSION_USERNAME'],
+            password=app.config['TRANSMISSION_PASSWORD']
+        )
 
 def _show_as_tuple(show):
     return Series(int(show['id']), show['language'], show['seriesname'], show['overview'])
@@ -33,9 +43,10 @@ def _build_episode_list(tvdb_show):
     return res
 
 
-@app.template_filter('b64')
-def encode_magnet_url(u):
-    return b64encode(u)
+@app.template_filter('find_hash')
+def extract_hash_from_magnet(u):
+    matches = torrent_hash_matcher.findall(u)
+    return matches[0].lower() if len(matches) > 0 else ''
 
 
 @app.route('/')
@@ -84,10 +95,21 @@ def search():
     return render_template('torrents.html', torrents=torrents)
 
 
+@app.route('/torrentAdd')
+def add_torrent():
+    torrent_hash = request.args.get('torrentHash', '')
+    client = _get_transmission_client()
+    magnet_url = 'magnet:?xt=urn:btih:' + torrent_hash
+    torrent = client.add_torrent(magnet_url)
+    return jsonify({'success' : True})
+
 @app.route('/updateDownloadProgress')
 def downloadProgress():
-    # TODO call bottledtv cli client here 
-    return ''
+    client = _get_transmission_client()
+    status = []
+    for torrent in client.get_torrents():
+        status.append(( torrent.hashString.lower(), torrent.progress ))
+    return jsonify(status)
 
 if __name__ == '__main__':
     app.run(debug=True)

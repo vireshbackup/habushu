@@ -17,7 +17,7 @@
     <td style="text-align:right;">{{t.seed}}</td>
     <td style="text-align:right;">{{t.leech}}</td>
     <td style="text-align:right;">
-        <div id="download_button_{{t.magnet_link|b64}}" class="download_button download" onclick="javascript:addTorrent('{{t.magnet_link|b64}}', true);" title="download this torrent"> download </div>
+        <div id="download_button_{{t.magnet_link|find_hash}}" class="download_button download" onclick="javascript:addTorrent('{{t.magnet_link|find_hash}}', true);" title="download this torrent"> download </div>
     </td> 
 </tr>
 {% endfor %}

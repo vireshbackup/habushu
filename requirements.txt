@@ -7,3 +7,5 @@ requests
 pyquery
 
 KickassAPI
+
+transmissionrpc
