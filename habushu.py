@@ -113,5 +113,11 @@ def downloadProgress():
     except transmissionrpc.TransmissionError:
         return 'transmission not reachable'
 
+@app.route('/torrentRemove')
+def abort_download():
+    client = _get_transmission_client()
+    client.remove_torrent(request.args.get('torrentHash', ''))
+    return jsonify({'status' : 'success'})
+
 if __name__ == '__main__':
     app.run(debug=True)
