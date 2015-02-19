@@ -22,7 +22,7 @@ def check_torrents(dry_run):
         ) 
 
     for torrent in client.get_torrents():
-        if torrent.status == 'seeding':
+        if torrent.status == 'seeding' or ( torrent.status == 'stopped' and (torrent.progress) == 100 ):
             if dry_run:
                 print 'stopping: ' + torrent.name
             else:
