@@ -1,5 +1,5 @@
 var updateProgressIntervalId = undefined;
-var updateProgressTimeout = 5000;
+var updateProgressTimeout = 30000;
 var progressMap = {};
 
 toggleFilter = function ()
