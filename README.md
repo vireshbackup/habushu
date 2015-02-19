@@ -23,6 +23,7 @@ RUNNING IN PRODUCTION
  - I recommend gunicorn started by supervisord behind nginx
     see https://serversforhackers.com/process-monitoring/
     and http://gunicorn-docs.readthedocs.org/en/latest/deploy.html
+ - checkout tools/download_watcher.py. you may want to run this in a cronjob. don't forget to use the virtualenv-python version to run it. e.g. /path/to/habushu_virtualenv/bin/python /path/to/habushu/tools/download_watcher.py --help
 
 STATUS
  - done: search, episodelist and episode-details, torrent-search and download
