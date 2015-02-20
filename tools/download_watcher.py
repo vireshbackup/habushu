@@ -1,13 +1,14 @@
 import os, sys, inspect, shutil
 import transmissionrpc
 
+# use habushu:app to access the configuration file
 sys.path.append(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) + '/../')
-
 from habushu import app
+
 
 def check_torrents(dry_run):
     """
-    check for downloads in state "seeding" and move their files
+    check for downloads in state "seeding" and move the biggest file
     into a configured directory. 
     """
     if not app.config['MOVE_AFTER_DOWNLOAD']:
@@ -28,18 +29,29 @@ def check_torrents(dry_run):
             else:
                 torrent.stop()
 
-            for f in torrent.files().values():
-                source_file = '%s/%s' % (app.config['TRANSMISSION_DOWNLOAD_DIR'], f['name'])
-                target_dir = app.config['HABUSHU_COMPLETED_DIR']
-                if dry_run:
-                    print 'moving %s to %s' % (source_file, target_dir)
-                else:
-                    shutil.move(source_file, target_dir)
-
+            # find the biggest file
+            files = sorted(torrent.files().values(), key=lambda f: f['size'], reverse=True)
+            file_to_move = files[0]
+            source_file = '%s/%s' % (app.config['TRANSMISSION_DOWNLOAD_DIR'], file_to_move['name'])
+            target_dir = app.config['HABUSHU_COMPLETED_DIR']
+            directory = os.path.dirname(file_to_move['name'])
+            if directory:
+                target_dir = target_dir + '/' + directory
+                if not os.path.exists(target_dir):
+                    if dry_run:
+                        print 'creating target directory: ' + target_dir
+                    else:
+                        os.mkdir(target_dir)
             if dry_run:
-                print 'removing torrent' + torrent.name
+                print 'moving %s to %s' % (source_file, target_dir)
+                print 'removing torrent ' + torrent.name
+                if directory:
+                    print 'removing directory %s/%s' % (app.config['TRANSMISSION_DOWNLOAD_DIR'], directory)
             else:
+                shutil.move(source_file, target_dir)
                 client.remove_torrent(torrent.hashString)
+                if directory:
+                    shutil.rmtree('%s/%s' % (app.config['TRANSMISSION_DOWNLOAD_DIR'], directory))
 
 
 if __name__ == '__main__':
