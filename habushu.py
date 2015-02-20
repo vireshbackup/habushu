@@ -86,7 +86,8 @@ def detail(series_id, lang, season_no, episode_no):
 @app.route('/torrentSearch')
 def search():
     (show, season, episode) = request.args.get('episodeId', '0/0/').split('/')
-    search_string = "%s S%02iE%02i" % (t[int(show)]['seriesname'], int(season), int(episode))
+    series_name = t[int(show)]['seriesname'].replace('(', '').replace(')', '')
+    search_string = "%s S%02iE%02i" % (series_name, int(season), int(episode))
     torrents = []
     for r in Search(search_string):
         torrents.append(r)
