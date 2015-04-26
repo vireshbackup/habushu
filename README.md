@@ -1,10 +1,15 @@
 # habushu
-python in a Bottle(dTV)...
+a frontend to tvdb.com, a (well known) torrent website and transmissionbt. habushu is specialiced in searching for tv-shows and displaying the episodes by season.
+The use of this program may be illegal in your country. Please check before usage. The author does not take any responsibility for using this software for illegal purposes. 
 
-if you don't know what BottledTV is, then there's probably no point in looking at this code. 
+EXAMPLE USAGE
+ - search for something that you are legally allowed to download (e.g. something under a CC license)
+ - click the show
+ - chose an episode
+ - search for torrents
+ - click download
 
 REQUIREMENTS
- - ~~java >= 7~~
  - python >= 2.7 && < 3.0
  - Transmission with a reachable webinterface (https://www.transmissionbt.com/)
 
@@ -13,7 +18,6 @@ BUILDING
  - create a virtualenv for habushu: mkvirtualenv habushu
  - enter the virtualenv: source PATH_TO_VIRTUALENVS/habushu/bin/activate
  - install requirements: pip install -r requirements.txt 
- - ~~fab build~~ (currently not necessary)
 
 RUNNING on cli
  - fab run_dev (runs a single-threaded dev server. NOT suitable for production)
