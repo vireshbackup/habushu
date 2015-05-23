@@ -1,11 +1,11 @@
 # habushu
-a frontend to tvdb.com, a (well known) torrent website and transmissionbt. habushu is specialiced in searching for tv-shows and displaying the episodes by season.
+a frontend to tvdb.com, a (well known) torrent website and transmissionbt. habushu is specialised in searching for tv-shows and displaying the episodes by season.
 The use of this program may be illegal in your country. Please check before usage. The author does not take any responsibility for using this software for illegal purposes. 
 
 EXAMPLE USAGE
  - search for something that you are legally allowed to download (e.g. something under a CC license)
  - click the show
- - chose an episode
+ - choose an episode
  - search for torrents
  - click download
 
@@ -20,6 +20,7 @@ BUILDING
  - install requirements: pip install -r requirements.txt 
 
 RUNNING on cli
+ - open habushu.cfg and configure it
  - fab run_dev (runs a single-threaded dev server. NOT suitable for production)
  - fab run (runs a gunicorn server with two workers listening on localhost:5000)
 
