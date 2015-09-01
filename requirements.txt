@@ -1,13 +1,6 @@
 fabric
 Flask
 tvdb_api
-
-# requirements for KickassAPI
-requests
-pyquery
-
-KickassAPI
-
+-e git+https://github.com/flurischt/KickassAPI.git@fixes#egg=KickassAPI
 transmissionrpc
-
 gunicorn
