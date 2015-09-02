@@ -19,70 +19,7 @@
 								<span class="title3" style="height:30px;">Search for torrents</span>
 							</td>
 							<td style="width:50%; vertical-align: middle; text-align: right">
-								<input id="toggle_filter_button" class="button" style="margin-right: 30px;" type="submit" value="Show filter settings" onclick="javascript:toggleFilter();"/>
                                 <input class="button" type="submit" value="Search" onclick="javascript:searchTorrents('{{series.id}}/{{episode.seasonNumber}}/{{episode.episodeNumber}}', '{{series.language}}');"/>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div id="search_filter_box" class="container_box adjacent hidden">
-					<table class="invisible">
-						<tr>
-							<td>
-								<table class="invisible">
-									<tr>
-										<td>File format:</td>
-										<td><input type="checkbox" name="fileformatMp4" checked>&nbsp;mp4</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td><input type="checkbox" name="fileformatMkv" checked>&nbsp;mkv</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td><input type="checkbox" name="fileformatAvi" checked>&nbsp;avi</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-									</tr>
-								</table>
-							</td>
-							<td>
-								<table class="invisible">
-									<tr>
-										<td>Resolution:</td>
-										<td><input type="checkbox" name="resolutionUnknown" checked>&nbsp;unknown</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td><input type="checkbox" name="resolution480p" checked>&nbsp;480p</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td><input type="checkbox" name="resolution720p" checked>&nbsp;720p</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td><input type="checkbox" name="resolution1080p" checked>&nbsp;1080p</td>
-									</tr>
-								</table>
-							</td>
-							<td>
-								<table class="invisible">
-									<tr>
-										<td>Sources:</td>
-										<td>
-											<input type="checkbox" name="acceptKickassTorrents" checked>&nbsp;Kickass Torrents
-										</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td>
-											<input type="checkbox" name="acceptThePirateBay" checked>&nbsp;The Pirate Bay
-										</td>
-									</tr>
-								</table>
 							</td>
 						</tr>
 					</table>

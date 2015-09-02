@@ -2,20 +2,6 @@ var updateProgressIntervalId = undefined;
 var updateProgressTimeout = 30000;
 var progressMap = {};
 
-toggleFilter = function ()
-{
-	if ($('#search_filter_box').hasClass('hidden'))
-	{
-		$('#search_filter_box').toggleClass('hidden', false);
-		$('#toggle_filter_button').val('Hide filter settings');
-	}
-	else
-	{
-		$('#search_filter_box').toggleClass('hidden', true);
-		$('#toggle_filter_button').val('Show filter settings');
-	}
-}
-
 toggleDetailsBox = function (id)
 {
 	$('#details_box_' + id).toggleClass('hidden');
