@@ -26,6 +26,7 @@ RUNNING on cli
  - ```fab run``` (runs a gunicorn server with two workers listening on localhost:5000)
 
 RUNNING IN PRODUCTION
+ - see ```examples/```
  - I recommend gunicorn started by supervisord behind nginx
     see https://serversforhackers.com/process-monitoring/
     and http://gunicorn-docs.readthedocs.org/en/latest/deploy.html
