@@ -13,22 +13,24 @@ REQUIREMENTS
  - python >= 2.7 && < 3.0
  - Transmission with a reachable webinterface (https://www.transmissionbt.com/)
 
-BUILDING
+INSTALL
  - make sure you have virtualenv installed (sudo pip install virtualenv)
  - create a virtualenv for habushu: mkvirtualenv habushu
- - enter the virtualenv: . PATH_TO_VIRTUALENVS/habushu/bin/activate
+ - enter the virtualenv: ```. PATH_TO_VIRTUALENVS/habushu/bin/activate```
  - install requirements: pip install -r requirements.txt 
 
 RUNNING on cli
  - open habushu.cfg and configure it
- - fab run_dev (runs a single-threaded dev server. NOT suitable for production)
- - fab run (runs a gunicorn server with two workers listening on localhost:5000)
+ - ```. PATH_TO_VIRTUALENVS/habushu/bin/activate```
+ - ```fab run_dev``` (runs a single-threaded dev server. NOT suitable for production)
+ - ```fab run``` (runs a gunicorn server with two workers listening on localhost:5000)
 
 RUNNING IN PRODUCTION
  - I recommend gunicorn started by supervisord behind nginx
     see https://serversforhackers.com/process-monitoring/
     and http://gunicorn-docs.readthedocs.org/en/latest/deploy.html
  - checkout tools/download_watcher.py. you may want to run this in a cronjob. don't forget to use the virtualenv-python version to run it. e.g. /path/to/habushu_virtualenv/bin/python /path/to/habushu/tools/download_watcher.py --help
+ - you may want to password protect access to habushu. use your reverse-proxy (nginx or apache) for that. 
 
 STATUS
  - done: search, episodelist and episode-details, torrent-search and download
