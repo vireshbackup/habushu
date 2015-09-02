@@ -95,7 +95,7 @@ addTorrent = function (torrentHash, test)
 						addTorrent(torrentHash, true);
 					});
 
-					displaySimpleDialog('Error trying to add torrent to the download queue. This may occur if another user has already started this download or Transmission is not running or accessible from BottledTV (i.e. invalid credentials).');
+					displaySimpleDialog('Error trying to add torrent to the download queue. This may occur if another user has already started this download or Transmission is not running or accessible from habushu (i.e. invalid credentials).');
 				}
 			});
 		}

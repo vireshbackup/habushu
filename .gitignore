@@ -1,7 +1,3 @@
 .DS_Store
-bottledtv/
-bottledtv_cli_client/build
-templates/*.jsp
-.gradle
 *.swp
 *.pyc

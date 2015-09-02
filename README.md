@@ -1,5 +1,5 @@
 # habushu
-a frontend to tvdb.com, a (well known) torrent website and transmissionbt. habushu is specialised in searching for tv-shows and displaying the episodes by season.
+a frontend to tvdb.com, a (well known) torrent website and transmissionbt. habushu lets you search for tv-shows and displays all episodes grouped by season. It can connect to transmissionbt to start torrent downloads.
 The use of this program may be illegal in your country. Please check before usage. The author does not take any responsibility for using this software for illegal purposes. 
 
 EXAMPLE USAGE
@@ -16,7 +16,7 @@ REQUIREMENTS
 BUILDING
  - make sure you have virtualenv installed (sudo pip install virtualenv)
  - create a virtualenv for habushu: mkvirtualenv habushu
- - enter the virtualenv: source PATH_TO_VIRTUALENVS/habushu/bin/activate
+ - enter the virtualenv: . PATH_TO_VIRTUALENVS/habushu/bin/activate
  - install requirements: pip install -r requirements.txt 
 
 RUNNING on cli
@@ -32,4 +32,5 @@ RUNNING IN PRODUCTION
 
 STATUS
  - done: search, episodelist and episode-details, torrent-search and download
- - planned features: integrate trakt.tv and display an overview page with "recent airings"
+ - planned feature I: integrate trakt.tv and display an overview page with "recent airings"
+ - planned feature II: create a more mobile-friendly webinterface
