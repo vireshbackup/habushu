@@ -1,5 +1,5 @@
 # habushu
-a frontend to tvdb.com, a (well known) torrent website and the Transmission bittorrent client. habushu lets you search for tv-shows and displays all episodes grouped by season. It can connect to Transmision to start torrent downloads.
+a frontend to thetvdb.com, a (well known) torrent website and the Transmission bittorrent client. habushu lets you search for tv-shows and displays all episodes grouped by season. It can connect to Transmision to start torrent downloads.
 The use of this program may be illegal in your country. Please check before usage. The author does not take any responsibility for using this software for illegal purposes. 
 
 EXAMPLE USAGE
