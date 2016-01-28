@@ -4,3 +4,4 @@ tvdb_api
 -e git+https://github.com/flurischt/KickassAPI.git@fixes#egg=KickassAPI
 transmissionrpc
 gunicorn
+requests[security]
