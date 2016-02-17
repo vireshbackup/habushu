@@ -45,6 +45,8 @@ def _build_episode_list(tvdb_show):
 
 @app.template_filter('find_hash')
 def extract_hash_from_magnet(u):
+    if not u:  #TODO ugly hack?
+        return ''
     matches = torrent_hash_matcher.findall(u)
     return matches[0].lower() if len(matches) > 0 else ''
 
@@ -92,7 +94,11 @@ def search():
     for r in Search(search_string):
         torrents.append(r)
     # sort the torrents. verified before unverified and then by seeders descending
-    torrents = sorted(torrents, key=lambda torrent: 10 * int(torrent.seed) if torrent.verified_torrent else int(torrent.seed), reverse=True)
+    def sorter(torrent):
+        seed = int(torrent.seed) if hasattr(torrent, 'seed') and len(torrent.seed.strip()) > 0 else 0
+        verified = torrent.verified_torrent if hasattr(torrent, 'verified_torrent') else False
+        return 10 * seed if verified else seed
+    torrents = sorted(torrents, key=sorter, reverse=True)
     return render_template('torrents.html', torrents=torrents)
 
 
