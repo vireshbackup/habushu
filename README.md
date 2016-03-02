@@ -18,7 +18,7 @@ apt-get install python-virtualenv supervisor python-dev transmission-daemon pyth
 
 INSTALL
  - make sure you have virtualenv installed (sudo pip install virtualenv)
- - create a virtualenv for habushu: virtualenv habushu --system-site-packages
+ - create a virtualenv for habushu: ```virtualenv habushu --system-site-packages```
  - enter the virtualenv: ```. PATH_TO_VIRTUALENVS/habushu/bin/activate```
  - install requirements: pip install -r requirements.txt 
 
