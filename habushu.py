@@ -8,7 +8,7 @@ from flask import Flask, request
 from flask import render_template
 from flask import jsonify
 from tvdb_exceptions import tvdb_shownotfound
-from KickassAPI import Search
+from flood import PirateBayApi
 
 # FIXME add our own tvdb api key
 t = tvdb_api.Tvdb(cache = True, banners = False, search_all_languages = True)
@@ -91,14 +91,8 @@ def search():
     series_name = t[int(show)]['seriesname'].replace('(', '').replace(')', '')
     search_string = "%s S%02iE%02i" % (series_name, int(season), int(episode))
     torrents = []
-    for r in Search(search_string):
-        torrents.append(r)
-    # sort the torrents. verified before unverified and then by seeders descending
-    def sorter(torrent):
-        seed = int(torrent.seed) if hasattr(torrent, 'seed') and len(torrent.seed.strip()) > 0 else 0
-        verified = torrent.verified_torrent if hasattr(torrent, 'verified_torrent') else False
-        return 10 * seed if verified else seed
-    torrents = sorted(torrents, key=sorter, reverse=True)
+    torrents, _ = PirateBayApi().search(search_string)  # TODO handle pagination?
+    torrents = sorted(torrents, key=lambda t: t.seeders, reverse=True)
     return render_template('torrents.html', torrents=torrents)
 
 
