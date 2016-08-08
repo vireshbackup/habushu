@@ -1,7 +1,7 @@
 fabric
 Flask
 tvdb_api
--e git+https://github.com/flurischt/flood.git@develop#egg=Flood
+-e git+https://github.com/flurischt/flood.git@master#egg=Flood
 transmissionrpc
 gunicorn
 requests[security]
