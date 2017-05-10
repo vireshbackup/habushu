@@ -22,6 +22,8 @@ def check_torrents(dry_run):
             password=app.config['TRANSMISSION_PASSWORD']
         ) 
 
+    download_dir = app.config['TRANSMISSION_DOWNLOAD_DIR']
+    target_dir = app.config['HABUSHU_COMPLETED_DIR']
     for torrent in client.get_torrents():
         if torrent.status == 'seeding' or ( torrent.status == 'stopped' and (torrent.progress) == 100 ):
             if dry_run:
@@ -29,12 +31,12 @@ def check_torrents(dry_run):
             else:
                 torrent.stop()
 
-            # find the biggest file
+            # find the biggest file and all subtitle-files (if available)
             files = sorted(torrent.files().values(), key=lambda f: f['size'], reverse=True)
-            file_to_move = files[0]
-            source_file = '%s/%s' % (app.config['TRANSMISSION_DOWNLOAD_DIR'], file_to_move['name'])
-            target_dir = app.config['HABUSHU_COMPLETED_DIR']
-            directory = os.path.dirname(file_to_move['name'])
+            srt_files = list(filter(lambda f: f['name'].lower().endswith('.srt'), files))
+            files_to_move = srt_files + [files[0]]
+            files_to_move = map(lambda f: '{}/{}'.format(download_dir, f['name']), files_to_move)
+            directory = os.path.dirname(files_to_move[0]['name'])
             if directory:
                 target_dir = target_dir + '/' + directory
                 if not os.path.exists(target_dir):
@@ -43,12 +45,14 @@ def check_torrents(dry_run):
                     else:
                         os.mkdir(target_dir)
             if dry_run:
-                print 'moving %s to %s' % (source_file, target_dir)
+                for source_file in files_to_move:
+                    print 'moving %s to %s' % (source_file, target_dir)
                 print 'removing torrent ' + torrent.name
                 if directory:
                     print 'removing directory %s/%s' % (app.config['TRANSMISSION_DOWNLOAD_DIR'], directory)
             else:
-                shutil.move(source_file, target_dir)
+                for source_file in files_to_move:
+                    shutil.move(source_file, target_dir)
                 client.remove_torrent(torrent.hashString)
                 if directory:
                     shutil.rmtree('%s/%s' % (app.config['TRANSMISSION_DOWNLOAD_DIR'], directory))
