@@ -23,7 +23,6 @@ def check_torrents(dry_run):
         ) 
 
     download_dir = app.config['TRANSMISSION_DOWNLOAD_DIR']
-    target_dir = app.config['HABUSHU_COMPLETED_DIR']
     for torrent in client.get_torrents():
         if torrent.status == 'seeding' or ( torrent.status == 'stopped' and (torrent.progress) == 100 ):
             if dry_run:
@@ -37,6 +36,7 @@ def check_torrents(dry_run):
             files_to_move = srt_files + [files[0]]
             files_to_move = map(lambda f: '{}/{}'.format(download_dir, f['name']), files_to_move)
             directory = os.path.dirname(files[0]['name'])
+            target_dir = app.config['HABUSHU_COMPLETED_DIR']
             if directory:
                 target_dir = target_dir + '/' + directory
                 if not os.path.exists(target_dir):
