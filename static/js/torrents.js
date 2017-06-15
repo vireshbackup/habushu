@@ -68,6 +68,7 @@ addTorrent = function (torrentHash, test)
 				data: { 'magnet_url' : magnet_url },
 				success: function ()
 				{
+   					displaySimpleDialog('Torrent has been added to the download queue.');
 					button.toggleClass('active', true);
 				},
 				error: function ()
