@@ -28,4 +28,10 @@
 					<p><img src="/static/img/ajax_loader_01.gif"/>&nbsp;searching torrents...</p>
 				</div>
 				<div id="result_box" class="hidden"></div>
+                <script type="text/javascript">
+                    // start searching for torrents when page has loaded
+                    $(window).load(function() {
+                        searchTorrents('{{series.id}}/{{episode.seasonNumber}}/{{episode.episodeNumber}}', '{{series.language}}');
+                    });
+                </script>
 {% endblock %}
