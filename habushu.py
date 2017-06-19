@@ -53,10 +53,6 @@ def extract_hash_from_magnet(u):
 
 @app.route('/')
 @app.route('/home')
-def welcome():
-     return render_template('index.html')
-
-
 @app.route('/browse')
 def browse():
     search = request.args.get('search', '')
